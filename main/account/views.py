@@ -2,8 +2,10 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .account_class import Accounts_funtions
+from rest_framework.permissions import AllowAny
 
 class RegisterViews(APIView):
+    permission_classes = [AllowAny]
     def post(self,request:Request):
         username = request.data.get("username")
         password = request.data.get("password")
@@ -13,6 +15,7 @@ class RegisterViews(APIView):
         return Response(Accounts_funtions.register(username,password,email))
 
 class LoginViews(APIView):
+    permission_classes = [AllowAny]
     def post(self,request:Request):
         username = request.data.get("username")
         password = request.data.get("password")
