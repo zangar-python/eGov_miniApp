@@ -52,9 +52,9 @@ class To_Queue:
         _admin = self.if_user_admin(queue)
         if not _admin:
             return self.RESULT("Вы не можете удалять админов")
-        _isin_admin = queue.admins.filter(id=user_id).exists()
+        _isin_admin = queue.admins.filter(id=user_id).exclude(id=self.user.id).exists()
         if not _isin_admin:
-            return "Этот пользователь не админ"
+            return "Этот пользователь не админ или вы пытаетесь удалить самого себя"
         queue.admins.remove(user_id)
         return self.RESULT("Успешно удален из списка админов")
         

@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .account_class import Accounts_funtions
 from rest_framework.permissions import AllowAny
+from .main_info import main_info
 
 class RegisterViews(APIView):
     permission_classes = [AllowAny]
@@ -23,3 +24,7 @@ class LoginViews(APIView):
             return Response("Пустые поля")
         return Response(Accounts_funtions.login(username,password,request))
 
+class MainInfoViews(APIView):
+    def get(self,request:Request):
+        info = main_info(request)
+        return Response(info.messages_info())

@@ -35,4 +35,19 @@ class Queue_Views(APIView):
         res = user_func.create_queue(title)
         return Response(res)
 
+class admin_crud_views(APIView):
+    def post(self,request:Request,id):
+        user_func = To_Queue(request.user)
+        user_id = request.data.get("user_id")
+        if not user_id:
+            return Response({"err":"Введите поле айди юзера user_id"})
+        return Response(user_func.add_admin(user_id,id))
+    def delete(self,request:Request,id):
+        user_func = To_Queue(request.user)
+        admin_id = request.data.get("user_id")
+        if not admin_id:
+            return Response({"err":"Введит поле юзер айди user_id"})
+        return Response(user_func.delete_admin(admin_id,id))
     
+    
+        
